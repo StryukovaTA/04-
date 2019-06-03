@@ -59,10 +59,10 @@ void print_in_binary(uint8_t byte)
         cout << bit_digit(byte, bit);
 }
 
-void print_in_binary(const void* data, size_t size)
+void print_in_binary(const void* data, size_t datasize)
 {
     const uint8_t* bytes = reinterpret_cast<const uint8_t*>(data);
-    for (size_t i = 0; i < size; i++)
+     for (size_t i = 0; i < datasize; i++)
     {
         print_in_binary(bytes[i]);
         if ( (i + 1) % 4 == 0 )
@@ -72,7 +72,54 @@ void print_in_binary(const void* data, size_t size)
     }
 }
 
-
+void byte_calc( uint16_t first, uint16_t second, char oper )
+{
+  uint16_t byteand = first & second;
+    uint16_t byteor = first | second;
+    uint16_t bytexor = first ^ second;
+    switch( oper )
+    {
+        case '&':
+            print_in_hex( &first, sizeof(first) );
+            cout << "& ";
+            print_in_hex( &second, sizeof(second) );
+            cout << "= ";
+            print_in_hex( &byteand, sizeof(byteand) );
+            cout << "\n";
+            print_in_binary( &first, sizeof(first) );
+            cout << "& ";
+            print_in_binary( &second, sizeof(second));
+            cout << "= ";
+            print_in_binary( &byteand, sizeof(byteand) );
+            break;
+        case '|':
+            print_in_hex( &first, sizeof(first));
+            cout << "| ";
+            print_in_hex( &second, sizeof(second) );
+            cout << "= ";
+            print_in_hex( &byteand, sizeof(byteand) );
+            cout << "\n";
+            print_in_binary( &first, sizeof(first) );
+            cout << "| ";
+            print_in_binary( &second, sizeof(second) );
+            cout << "= ";
+            print_in_binary( &byteor, sizeof(byteor) );
+            break;
+        case '^':
+            print_in_hex( &first, sizeof(first));
+            cout << "^ ";
+            print_in_hex( &second, sizeof(second) );
+            cout << "= ";
+            print_in_hex( &byteand, sizeof(byteand) );
+            cout << "\n";
+            print_in_binary( &first, sizeof(first) );
+            cout << "^ ";
+            print_in_binary( &second, sizeof(second) );
+            cout << "= ";
+            print_in_binary( &bytexor, sizeof(bytexor) );
+            break;
+    }
+}
 
 int main()
 {
@@ -120,7 +167,7 @@ int main()
     cout << '\n';
     print_in_binary(0x0f);
     cout << '\n';
-    */
+
      uint8_t u8 = 42;
     cout << "u8 bytes: ";
     print_in_binary(&u8, sizeof(u8));
@@ -135,6 +182,11 @@ int main()
     cout << "u32 bytes: ";
     print_in_binary(&u32, sizeof(u32));
     cout << '\n';
+*/
+    uint16_t first, second;
+    char oper;
+    cin >> first >> oper >> second;
+    byte_calc( first, second, oper );
 
 
     getch();
